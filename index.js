@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { graphql } from '@octokit/graphql';
+import { writeFileSync } from 'fs';
 
 const client = graphql.defaults({
   headers: {
@@ -24,36 +25,33 @@ const data = await client(`
 }
 `);
 
-const weeks = data.viewer.contributionsCollection.contributionCalendar.weeks;
+const allWeeks = data.viewer.contributionsCollection.contributionCalendar.weeks;
 
-const days = weeks.flatMap(week => week.contributionDays);
+// Take the last 5 weeks (matches the grid in your screenshot).
+// GitHub's weeks are already Sunday-Saturday aligned — no need to re-derive.
+const recentWeeks = allWeeks.slice(-5);
 
-const currentMonth = "2026-07"; //TODO remove hardcode value
+const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
 
-const monthDays = days.filter(day => 
-  day.date.startsWith(currentMonth)
-);
+// Calculate streak: walk backwards from most recent COMPLETE week.
+// The current week (if still in progress) is checked separately so an
+// empty-so-far week doesn't wrongly break the streak.
+const isCurrentWeek = (week) =>
+  week.contributionDays.some((d) => d.date === today);
 
-const weeksWithActivity = monthDays.reduce((weeks, day) => {
-  const weekNumber = 
-  Math.floor(
-    (new Date(day.date).getDate() - 1)/7
-  );
-
-
-  if (!weeks[weekNumber]) {
-    weeks[weekNumber] = [];
-  }
-
-  weeks[weekNumber].push(day);
-
-  return weeks;
-}, []);
-
+let weeksToCheck = [...recentWeeks].reverse();
 let weekStreak = 0;
 
-for(const week of weeksWithActivity.reverse()) {
-  const hasContribution = week.some(day => day.contributionCount > 0);
+for (const week of weeksToCheck) {
+  const hasContribution = week.contributionDays.some(
+    (day) => day.contributionCount > 0
+  );
+
+  if (isCurrentWeek(week)) {
+    // only count it if it already has activity; otherwise skip without breaking streak
+    if (hasContribution) weekStreak++;
+    continue;
+  }
 
   if (hasContribution) {
     weekStreak++;
@@ -62,5 +60,19 @@ for(const week of weeksWithActivity.reverse()) {
   }
 }
 
+console.log('Week Streak:', weekStreak);
 
-console.log("Week Streak :",weekStreak);
+const output = {
+  today,
+  weekStreak,
+  weeks: recentWeeks.map((week) => ({
+    days: week.contributionDays.map((day) => ({
+      date: day.date,
+      contributions: day.contributionCount,
+    })),
+  })),
+};
+
+writeFileSync('./streak.json', JSON.stringify(output, null, 2));
+
+console.log('Saved streak.json');
