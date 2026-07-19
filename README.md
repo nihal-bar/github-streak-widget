@@ -5,10 +5,10 @@
 Using Übersicht one can make widgets on macOS using React/CSS. I want to track on my own device how often I push, and want to create a habit of consistency.
 
 
-##### You will need Übersicht for this. 
+### You will need Übersicht for this. 
 Install it first, and write a index.jsx file to /Library/Application Support/Übersicht/widgets 
 
-You can set the cron job to poll for pushes as often as you like, currently I've set mine to 15 minutes.
+You can setto poll for pushes as often as you like, currently I've set mine to 15 minutes.
 
 ``export const refreshFrequency = 15 * 60 * 1000;``
 
