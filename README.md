@@ -2,7 +2,7 @@
 
 ![image](/assets/example.png)
 
-Using Übersicht one can make widgets on macOS using React/CSS. I want to track on my own device how often I push, and want to create a habit of consistency.
+Using [Übersicht](https://ubersicht.macupdate.com/) one can make widgets on macOS using React/CSS. I want to track on my own device how often I push, and want to create a habit of consistency.
 
 
 ### You will need Übersicht for this. 
