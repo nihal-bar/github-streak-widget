@@ -1,0 +1,142 @@
+{
+  "today": "2026-07-19",
+  "weekStreak": 1,
+  "weeks": [
+    {
+      "days": [
+        {
+          "date": "2026-06-21",
+          "contributions": 0
+        },
+        {
+          "date": "2026-06-22",
+          "contributions": 0
+        },
+        {
+          "date": "2026-06-23",
+          "contributions": 3
+        },
+        {
+          "date": "2026-06-24",
+          "contributions": 13
+        },
+        {
+          "date": "2026-06-25",
+          "contributions": 0
+        },
+        {
+          "date": "2026-06-26",
+          "contributions": 0
+        },
+        {
+          "date": "2026-06-27",
+          "contributions": 0
+        }
+      ]
+    },
+    {
+      "days": [
+        {
+          "date": "2026-06-28",
+          "contributions": 0
+        },
+        {
+          "date": "2026-06-29",
+          "contributions": 4
+        },
+        {
+          "date": "2026-06-30",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-01",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-02",
+          "contributions": 2
+        },
+        {
+          "date": "2026-07-03",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-04",
+          "contributions": 0
+        }
+      ]
+    },
+    {
+      "days": [
+        {
+          "date": "2026-07-05",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-06",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-07",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-08",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-09",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-10",
+          "contributions": 1
+        },
+        {
+          "date": "2026-07-11",
+          "contributions": 0
+        }
+      ]
+    },
+    {
+      "days": [
+        {
+          "date": "2026-07-12",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-13",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-14",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-15",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-16",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-17",
+          "contributions": 0
+        },
+        {
+          "date": "2026-07-18",
+          "contributions": 0
+        }
+      ]
+    },
+    {
+      "days": [
+        {
+          "date": "2026-07-19",
+          "contributions": 5
+        }
+      ]
+    }
+  ]
+}
