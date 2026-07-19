@@ -1,4 +1,6 @@
-### Streak widget
+# Streak widget for macOS
+
+[!image](assets/example.png)
 
 Using Übersicht one can make widgets on macOS using React/CSS. I want to track on my own device how often I push, and want to create a habit of consistency.
 
@@ -13,8 +15,12 @@ You can set the cron job to poll for pushes as often as you like, currently I've
 index.jsx exports a render() function that Übersicht uses to create the widget display
 
 ```
-export const refreshFrequency = 15 * 60 * 1000; 
-export const command = "cat streak.json"; // Update this relative to the streak.json file location created by index.js in this project
+export const refreshFrequency = 15 * 60 * 1000;
+
+export const command =
+  "cat /Users/nihal/practice-ts/github-streak-widget/streak.json";
+
+const DAY_LABELS = ["S", "M", "T", "W", "T", "F", "S"];
 
 export const render = ({ output }) => {
   if (!output) return <div>Loading...</div>;
@@ -22,38 +28,89 @@ export const render = ({ output }) => {
   const data = JSON.parse(output);
 
   return (
-    <div className="streak-widget">
-      <div className="streak-count">🔥 {data.weekStreak} week streak</div>
-      <div className="days">
-        {data.days.map(day => (
-          <div
-            key={day.date}
-            className="day"
-            style={{ opacity: day.contributions > 0 ? 1 : 0.2 }}
-            title={`${day.date}: ${day.contributions}`}
-          />
+    <div className="card">
+      <div className="header">
+        <span className="streak-number">{data.weekStreak}</span> Week Streak
+      </div>
+
+      <div className="grid">
+        {DAY_LABELS.map((label, i) => (
+          <div key={`label-${i}`} className="day-label">
+            {label}
+          </div>
         ))}
+
+        {data.weeks.map((week, weekIdx) =>
+          week.days.map((day, dayIdx) => {
+            const isToday = day.date === data.today;
+            const active = day.contributions > 0;
+
+            return (
+              <div
+                key={`${weekIdx}-${dayIdx}`}
+                className={`dot ${active ? "active" : ""} ${
+                  isToday ? "today" : ""
+                }`}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );
 };
 
 export const className = `
+  background: #1e1e1e;
+  border-radius: 16px;
+  padding: 24px;
+  width: 300px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: white;
   top: 20px;
   left: 20px;
-  color: white;
-  font-family: -apple-system;
 
-  .day {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin: 2px;
-    background: #39d353;
-    border-radius: 2px;
+  .header {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .streak-number {
+    color: #e8734a;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 10px;
+    justify-items: center;
+  }
+
+  .day-label {
+    color: #999;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3a3a3a;
+  }
+
+  .dot.active {
+    background: #f0b429;
+  }
+
+  .dot.today {
+    outline: 2px solid #f0b429;
+    outline-offset: 2px;
+    background: transparent;
   }
 `;
 ```
 
 
-Now you will have to also make a launch daemon to poll every 15 minutes.
+I've made it to resemble Boostcamp's UI. Attached is an image of the
