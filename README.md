@@ -113,4 +113,4 @@ export const className = `
 ```
 
 
-I've made it to resemble Boostcamp's UI. Attached is an image of the
+I've made it to resemble Boostcamp's UI. Shoutout [Boostcamp!](www.boostcamp.app)
