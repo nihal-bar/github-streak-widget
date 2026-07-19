@@ -12,7 +12,7 @@ You can set the cron job to poll for pushes as often as you like, currently I've
 
 index.jsx exports a render() function that Übersicht uses to create the widget display
 
-´´´
+```
 export const refreshFrequency = 15 * 60 * 1000; 
 export const command = "cat streak.json"; // Update this relative to the streak.json file location created by index.js in this project
 
@@ -53,7 +53,7 @@ export const className = `
     border-radius: 2px;
   }
 `;
-´´´
+```
 
 
 Now you will have to also make a launch daemon to poll every 15 minutes.
